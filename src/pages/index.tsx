@@ -38,7 +38,7 @@ export default function Home() {
       </div>
       <div className="p-14 background">
         <div className="grid grid-cols-4 gap-4 justify-items-center">
-          {products.map(p => <ProductCard imgUrl={p.image} name={p.name} price={p.price} />)}
+          {products.map(p => <ProductCard key={p.name} imgUrl={p.image} name={p.name} price={p.price} />)}
         </div>
       </div>
     </>
