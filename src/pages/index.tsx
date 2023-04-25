@@ -5,23 +5,27 @@ import styles from '@/styles/Home.module.css'
 import ProductCard from '@/components/ProductCard'
 import { useEffect, useState } from 'react'
 import GroupLoadingSkeleton from '@/components/LoadingSkeleton'
-
-const inter = Inter({ subsets: ['latin'] })
+import { getProduct, getProducts } from '@/services/api'
+import { useCategory } from '@/contexts/CategoryContext'
+import { CategoryType } from '@/types/enum'
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([])
   const [isLoading, setLoading] = useState(false)
+  const { category } = useCategory()
 
   useEffect(() => {
     setLoading(true)
-    setTimeout(() => fetch("/api/products")
-    .then(res => res.json())
+    setTimeout(() => getProducts()
     .then(data => {
-      setProducts(data.products)
+      let filtered = data
+      if (category !== "") {
+        filtered = data.filter(d => {console.log(d.category); return d.category === CategoryType[category as keyof typeof CategoryType]})
+      }
+      setProducts(filtered)
       setLoading(false)
-    }), 3000)
-    
-  }, [])
+    }), 1500)
+  }, [category])
   
   if (isLoading) return <GroupLoadingSkeleton />
 

@@ -1,4 +1,4 @@
-interface Product {
+type Product = {
     name: string,
     price: number,
     tags: Tag,
