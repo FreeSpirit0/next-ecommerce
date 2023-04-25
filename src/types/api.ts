@@ -2,13 +2,7 @@ type Product = {
     name: string,
     price: number,
     tags: Tag,
-    category: Category
-    description: string,
-    image: string
-}
-
-interface Category {
-    title: string,
+    category: number
     description: string,
     image: string
 }
